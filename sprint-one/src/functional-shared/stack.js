@@ -36,5 +36,7 @@ stackMethods.push = function(value){
 };
 
 stackMethods.pop = function(){
-  if ()
+  if (this.storage) {
+
+  }
 };
