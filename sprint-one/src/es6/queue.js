@@ -6,7 +6,29 @@ class Queue {
     this.length = 0;
   }
 
-  size (){
+  size () {
     return this.length;
   }
+
+  enqueue (value) {
+    this.storage[this.length] = value;
+    this.length++;
+    return this.value;
+  }
+
+  dequeue () {
+    var keep = this.storage[0];// first
+
+    for (var key in this.storage){ // shift all items down
+      this.storage[key -1] = this.storage[key];
+    }
+    delete this.storage[-1];
+
+    if (this.length){
+      this.length--;
+    }
+
+    return keep;
+  }
+
 }
