@@ -1,3 +1,10 @@
+
+var extend = function (obj, methods) {
+  for (var key in methods){
+    obj[key] = methods[key];
+  }
+}
+
 var Stack = function() {
   //   // Hey! Rewrite in the new style. Your code will wind up looking very similar,
   //   // but try not not reference your old code in writing the new style.
@@ -5,9 +12,11 @@ var Stack = function() {
   someInstance.push = stackMethods.push;
   someInstance.pop = stackMethods.pop;
   someInstance.size = stackMethods.size;
+  someInstance.length = 0;
+  someInstance.storage = {};
 
-  var length = 0;
-  var storage = {};
+  //_.extend(someInstance, stackMethods); **** determine why dis isn't working
+  extend(someInstance, stackMethods);
 
   return someInstance;
 };
@@ -15,28 +24,21 @@ var Stack = function() {
 var stackMethods = {};
 
 stackMethods.size = function () {
-  return this.length || 0;
+  return this.length;
 };
 
 stackMethods.push = function(value){
-  if (this.storage){
-    this.storage[length] = value;
-  } else {
-    this.storage = {};
-    this.storage[length] = value;
-  }
-
-  if (this.length){
-    this.length++;
-  } else {
-    this.length = 1;
-  }
-
+  this.length++;
+  this.storage[this.length -1] = value;
   return value;
 };
 
 stackMethods.pop = function(){
-  if (this.storage) {
-
+  var save;
+  if (this.length) {
+    save = this.storage[this.length -1];
+    delete this.storage[this.length -1];
+    this.length--;
   }
+  return save;
 };
